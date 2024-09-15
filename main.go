@@ -34,7 +34,7 @@ func main() {
 	// Create the sub-router
 	wordleRouter := r.PathPrefix("/wordle").Subrouter()
 
-	// Register flood package routes with the floodRouter
+	// Register wordle package routes with the wordleRouter
 	wordle.RegisterRoutes(wordleRouter)
 
 	// Apply CORS middleware to the main router
