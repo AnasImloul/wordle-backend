@@ -1,0 +1,30 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dev_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data:/var/lib/redis/data
+      - ./redis.conf:/etc/redis/redis.conf
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"         # Limits the container to 1 CPU core
+          memory: "2g"         # Limits the container to 2GB of memory
+        reservations:
+          cpus: "0.5"         # Guarantees at least 0.5 CPU cores
+          memory: "1g"         # Guarantees at least 1GB of memory
