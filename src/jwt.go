@@ -32,7 +32,6 @@ func getTokenVersion(userId string) (int, error) {
 
 func incrementTokenVersion(userId string) error {
 	tokenVersion, _ := getTokenVersion(userId)
-	log.Println(fmt.Sprintf("session-%s", userId))
 	err := rdb.Set(ctx, fmt.Sprintf("session-%s", userId), tokenVersion+1, time.Hour*5).Err()
 	if err != nil {
 		return fmt.Errorf("failed to increment token version: %v", err)
